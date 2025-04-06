@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chinese Vocabulary Player</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    h2 {
+      margin-top: 2em;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+      text-align: center;
+    }
+    .word {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 10px;
+      margin: 4px 0;
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .word-text {
+      flex-grow: 1;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>📘 Chinese Vocabulary with Audio</h1>
+  <div id="app">Loading...</div>
+
+  <script>
+    const data = []; // Placeholder for injected data
+
+    function playAudio(filename) {
+      const audio = new Audio("audio/" + filename);
+      audio.play();
+    }
+
+    function createWordEntry(word) {
+      const div = document.createElement("div");
+      div.className = "word";
+
+      const text = document.createElement("div");
+      text.className = "word-text";
+      text.innerText = `${word.traditional} / ${word.simplified} | ${word.pinyin} | ${word.english}`;
+
+      const button = document.createElement("button");
+      button.innerText = "🔊";
+      button.onclick = () => playAudio(word.english.toLowerCase().replace(/ /g, "_").replace(/\//g, "_") + ".mp3");
+
+      div.appendChild(text);
+      div.appendChild(button);
+      return div;
+    }
+
+    function renderApp() {
+      const app = document.getElementById("app");
+      app.innerHTML = "";
+      data.forEach(category => {
+        const header = document.createElement("h2");
+        header.innerText = category.category;
+        app.appendChild(header);
+        category.words.forEach(word => {
+          app.appendChild(createWordEntry(word));
+        });
+      });
+    }
+
+    renderApp();
+  </script>
+</body>
+</html>
