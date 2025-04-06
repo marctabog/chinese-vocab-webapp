@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,9 +44,11 @@
   <h1>📘 Chinese Vocabulary with Audio</h1>
   <div id="app">Loading...</div>
 
-  <script>
-    const data = []; // Placeholder for injected data
+  <!-- ✅ Load vocab data -->
+  <script src="data.js"></script>
 
+  <!-- ✅ Web logic using the `data` constant -->
+  <script>
     function playAudio(filename) {
       const audio = new Audio("audio/" + filename);
       audio.play();
@@ -63,7 +64,8 @@
 
       const button = document.createElement("button");
       button.innerText = "🔊";
-      button.onclick = () => playAudio(word.english.toLowerCase().replace(/ /g, "_").replace(/\//g, "_") + ".mp3");
+      button.onclick = () =>
+        playAudio(word.english.toLowerCase().replace(/ /g, "_").replace(/\//g, "_") + ".mp3");
 
       div.appendChild(text);
       div.appendChild(button);
